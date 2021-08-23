@@ -2,7 +2,6 @@ package com.infraleap.pinball.views.about;
 
 import com.infraleap.pinball.data.Tournament;
 import com.infraleap.pinball.service.ResultService;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
@@ -13,19 +12,21 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.PageTitle;
 import com.infraleap.pinball.views.MainLayout;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vaadin.flow.spring.annotation.SpringComponent;
 
 @PageTitle("About")
 @Route(value = "about", layout = MainLayout.class)
+@SpringComponent
 public class AboutView extends Div implements HasUrlParameter<String> {
 
-    @Autowired
-    private ResultService resultService;
+    private final ResultService resultService;
 
     private final Div wrapper;
     private Tournament tournament;
 
-    public AboutView() {
+    public AboutView(ResultService resultService) {
+        this.resultService = resultService;
+
         addClassNames("about-view", "flex", "flex-col", "h-full", "items-center", "justify-center", "p-l",
                 "text-center", "box-border");
 
