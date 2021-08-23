@@ -120,7 +120,7 @@ public class MainLayout extends AppLayout {
         MenuItemInfo[] menuItems = new MenuItemInfo[]{ //
                 new MenuItemInfo("Hello World", "la la-globe", HelloWorldView.class), //
 
-                new MenuItemInfo("About", "la la-file", AboutView.class), //
+                //new MenuItemInfo("About", "la la-file", AboutView.class), //
 
         };
         List<RouterLink> links = new ArrayList<>();
