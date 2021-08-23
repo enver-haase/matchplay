@@ -10,11 +10,9 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.PageTitle;
 import com.infraleap.pinball.views.MainLayout;
-import com.vaadin.flow.spring.annotation.SpringComponent;
 
 @PageTitle("About")
 @Route(value = "about", layout = MainLayout.class)
-@SpringComponent
 public class AboutView extends Div implements HasUrlParameter<String> {
 
     private final MatchPlayService matchPlayService;
