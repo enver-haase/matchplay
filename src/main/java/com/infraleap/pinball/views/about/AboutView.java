@@ -1,11 +1,9 @@
 package com.infraleap.pinball.views.about;
 
+import com.infraleap.pinball.data.Standing;
 import com.infraleap.pinball.data.Tournament;
-import com.infraleap.pinball.service.ResultService;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Paragraph;
+import com.infraleap.pinball.service.MatchPlayService;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
@@ -19,13 +17,14 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 @SpringComponent
 public class AboutView extends Div implements HasUrlParameter<String> {
 
-    private final ResultService resultService;
+    private final MatchPlayService matchPlayService;
 
     private final Div wrapper;
     private Tournament tournament;
+    private Standing[] standings;
 
-    public AboutView(ResultService resultService) {
-        this.resultService = resultService;
+    public AboutView(MatchPlayService matchPlayService) {
+        this.matchPlayService = matchPlayService;
 
         addClassNames("about-view", "flex", "flex-col", "h-full", "items-center", "justify-center", "p-l",
                 "text-center", "box-border");
@@ -52,12 +51,16 @@ public class AboutView extends Div implements HasUrlParameter<String> {
         if (tournament != null) {
             add(new H2("Welcome To: " + tournament.getName()));
         }
+        if (standings != null){
+            add(new H3("Lead: "+standings[0].getName()));
+        }
         add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
     }
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, String s) {
-        tournament = resultService.getTournament(s);
+        tournament = matchPlayService.getTournament(s);
+        standings = matchPlayService.getStandings(s);
 
         update();
     }
