@@ -1,4 +1,4 @@
-package com.infraleap.pinball.views.helloworld;
+package com.infraleap.pinball.views.chooser;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -12,12 +12,12 @@ import com.vaadin.flow.router.RouteAlias;
 @PageTitle("Tournament Selector")
 @Route(value = "tournament-select")
 @RouteAlias(value = "")
-public class HelloWorldView extends HorizontalLayout {
+public class TournamentSelectView extends HorizontalLayout {
 
     private TextField name;
     private Button sayHello;
 
-    public HelloWorldView() {
+    public TournamentSelectView() {
         addClassName("hello-world-view");
         name = new TextField("Your name");
         sayHello = new Button("Say hello");

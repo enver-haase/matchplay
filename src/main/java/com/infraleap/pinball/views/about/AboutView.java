@@ -9,10 +9,9 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.PageTitle;
-import com.infraleap.pinball.views.MainLayout;
 
 @PageTitle("About")
-@Route(value = "about"/*, layout = MainLayout.class*/)
+@Route(value = "about")
 public class AboutView extends Div implements HasUrlParameter<String> {
 
     private final MatchPlayService matchPlayService;
