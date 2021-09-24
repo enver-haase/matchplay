@@ -1,7 +1,8 @@
 
-package com.infraleap.pinball.data;
+package com.infraleap.pinball.data.matchplay;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -13,27 +14,40 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "game_id",
     "arena_id",
-    "name",
+    "bank_id",
     "status",
-    "opdb_id",
-    "tournament"
+    "players",
+    "results"
 })
 @Generated("jsonschema2pojo")
-public class Arena {
+public class Game {
 
+    @JsonProperty("game_id")
+    private Integer gameId;
     @JsonProperty("arena_id")
     private Integer arenaId;
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("bank_id")
+    private Object bankId;
     @JsonProperty("status")
     private String status;
-    @JsonProperty("opdb_id")
-    private String opdbId;
-    @JsonProperty("tournament")
-    private Tournament tournament;
+    @JsonProperty("players")
+    private List<Player> players = null;
+    @JsonProperty("results")
+    private List<Result> results = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("game_id")
+    public Integer getGameId() {
+        return gameId;
+    }
+
+    @JsonProperty("game_id")
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
+    }
 
     @JsonProperty("arena_id")
     public Integer getArenaId() {
@@ -45,14 +59,14 @@ public class Arena {
         this.arenaId = arenaId;
     }
 
-    @JsonProperty("name")
-    public String getName() {
-        return name;
+    @JsonProperty("bank_id")
+    public Object getBankId() {
+        return bankId;
     }
 
-    @JsonProperty("name")
-    public void setName(String name) {
-        this.name = name;
+    @JsonProperty("bank_id")
+    public void setBankId(Object bankId) {
+        this.bankId = bankId;
     }
 
     @JsonProperty("status")
@@ -65,24 +79,24 @@ public class Arena {
         this.status = status;
     }
 
-    @JsonProperty("opdb_id")
-    public String getOpdbId() {
-        return opdbId;
+    @JsonProperty("players")
+    public List<Player> getPlayers() {
+        return players;
     }
 
-    @JsonProperty("opdb_id")
-    public void setOpdbId(String opdbId) {
-        this.opdbId = opdbId;
+    @JsonProperty("players")
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
-    @JsonProperty("tournament")
-    public Tournament getTournament() {
-        return tournament;
+    @JsonProperty("results")
+    public List<Result> getResults() {
+        return results;
     }
 
-    @JsonProperty("tournament")
-    public void setTournament(Tournament tournament) {
-        this.tournament = tournament;
+    @JsonProperty("results")
+    public void setResults(List<Result> results) {
+        this.results = results;
     }
 
     @JsonAnyGetter

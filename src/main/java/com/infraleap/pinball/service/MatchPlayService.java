@@ -2,9 +2,9 @@ package com.infraleap.pinball.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infraleap.pinball.data.Result;
-import com.infraleap.pinball.data.Standing;
-import com.infraleap.pinball.data.Tournament;
+import com.infraleap.pinball.data.matchplay.Result;
+import com.infraleap.pinball.data.matchplay.Standing;
+import com.infraleap.pinball.data.matchplay.Tournament;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.client.Client;

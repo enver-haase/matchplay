@@ -1,7 +1,7 @@
 package com.infraleap.pinball.views.about;
 
-import com.infraleap.pinball.data.Standing;
-import com.infraleap.pinball.data.Tournament;
+import com.infraleap.pinball.data.matchplay.Standing;
+import com.infraleap.pinball.data.matchplay.Tournament;
 import com.infraleap.pinball.service.MatchPlayService;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.dom.Style;

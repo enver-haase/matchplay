@@ -1,5 +1,5 @@
 
-package com.infraleap.pinball.data;
+package com.infraleap.pinball.data.matchplay;
 
 import java.util.HashMap;
 import java.util.Map;
