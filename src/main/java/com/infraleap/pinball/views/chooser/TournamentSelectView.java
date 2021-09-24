@@ -1,11 +1,16 @@
 package com.infraleap.pinball.views.chooser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.infraleap.pinball.components.VerticalAutoScroller;
 import com.infraleap.pinball.data.config.Config;
+import com.infraleap.pinball.event.TimerEvent;
+import com.infraleap.pinball.layout.MainLayout;
+import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.PageTitle;
@@ -16,9 +21,9 @@ import org.springframework.core.io.Resource;
 import java.io.IOException;
 
 @PageTitle("Tournament Selector")
-@Route(value = "tournament-select")
-@RouteAlias(value = "")
-public class TournamentSelectView extends HorizontalLayout {
+@Route(value = "tournament-select", layout = MainLayout.class)
+@RouteAlias(value = "", layout = MainLayout.class)
+public class TournamentSelectView extends VerticalLayout {
 
     @Value("classpath:data/config.json")
     Resource resourceFile;
@@ -30,8 +35,10 @@ public class TournamentSelectView extends HorizontalLayout {
         addClassName("hello-world-view");
         name = new TextField("Your name");
         sayHello = new Button("Say hello");
-        add(name, sayHello);
-        setVerticalComponentAlignment(Alignment.END, name, sayHello);
+
+        VerticalAutoScroller vas = new VerticalAutoScroller();
+        vas.setHeight("60%");
+        add(name, sayHello, vas);
         sayHello.addClickListener(e -> {
             ObjectMapper mapper = new ObjectMapper();
             try {

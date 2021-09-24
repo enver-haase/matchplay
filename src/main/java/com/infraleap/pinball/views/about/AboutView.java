@@ -2,6 +2,7 @@ package com.infraleap.pinball.views.about;
 
 import com.infraleap.pinball.data.matchplay.Standing;
 import com.infraleap.pinball.data.matchplay.Tournament;
+import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.MatchPlayService;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.dom.Style;
@@ -11,7 +12,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.PageTitle;
 
 @PageTitle("About")
-@Route(value = "about")
+@Route(value = "about", layout = MainLayout.class)
 public class AboutView extends Div implements HasUrlParameter<String> {
 
     private final MatchPlayService matchPlayService;
