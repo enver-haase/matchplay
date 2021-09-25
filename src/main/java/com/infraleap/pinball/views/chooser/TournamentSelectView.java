@@ -29,6 +29,7 @@ public class TournamentSelectView extends VerticalLayout {
         this.matchPlayService = matchPlayService;
 
         addClassName("tournament-select-view");
+        addClassName("items-center");
 
         Configuration config = configurationService.getConfiguration();
         List<TournamentSet> tourneySets = config.getTournamentSets();
