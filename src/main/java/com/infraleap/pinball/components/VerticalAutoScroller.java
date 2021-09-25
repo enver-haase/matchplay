@@ -2,50 +2,56 @@ package com.infraleap.pinball.components;
 
 import com.infraleap.pinball.event.TimerEvent;
 import com.vaadin.flow.component.*;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.shared.Registration;
 
-import java.util.ArrayList;
-import java.util.List;
+public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ {
+    // TODO: for a release, make it implement HasComponents, likely override all default methods
 
-public class VerticalAutoScroller extends Scroller {
-
-    private List<Component> components = new ArrayList<>();
     private volatile int currentlyVisible = 0;
+
+    private final VerticalLayout verticalLayout = new VerticalLayout();
 
     public VerticalAutoScroller(){
         setScrollDirection(ScrollDirection.VERTICAL);
-
-        for (int i=0; i<200; i++){
-            components.add(new Span("Hallo Du Vogel "+i));
-        }
-
-        VerticalLayout vl = new VerticalLayout();
-        vl.add(components.toArray(new Component[0]));
-        setContent(vl);
+        super.setContent(verticalLayout);
     }
 
-    private Registration reg;
+    private Registration timerRegistration;
 
     @Override
     protected void onAttach(AttachEvent attachEvent){
-        reg = ComponentUtil.addListener(attachEvent.getUI(), TimerEvent.class, e->{
-            System.out.println("tick! "+currentlyVisible);
-            synchronized (this) {
-                ++currentlyVisible;
-                currentlyVisible %= components.size();
+        timerRegistration = ComponentUtil.addListener(attachEvent.getUI(), TimerEvent.class, e->{
+            if (verticalLayout.getChildren().findAny().isPresent()) {
+                //System.out.println("tick! " + currentlyVisible);
+                synchronized (this) {
+                    ++currentlyVisible;
+                    currentlyVisible %= verticalLayout.getChildren().count();
+                }
+                attachEvent.getUI().access(() -> {
+                    verticalLayout.getComponentAt(currentlyVisible).getElement().executeJs("$0.scrollIntoView();");
+                    attachEvent.getUI().push();
+                });
             }
-            attachEvent.getUI().access( () -> {
-                components.get(currentlyVisible).getElement().executeJs("$0.scrollIntoView();" );
-                attachEvent.getUI().push();
-            } );
         });
     }
 
     @Override
     protected void onDetach(DetachEvent detachEvent) {
-        reg.remove();
+        timerRegistration.remove();
+    }
+
+    @Override
+    public void setContent(Component component){
+        throw new UnsupportedOperationException();
+    }
+
+    public void add(Component... components){
+        this.verticalLayout.add(components);
+    }
+
+    public void addEmptyLine(){
+        this.verticalLayout.add("");
     }
 }
