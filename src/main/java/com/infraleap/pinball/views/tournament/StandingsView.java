@@ -1,4 +1,4 @@
-package com.infraleap.pinball.views.about;
+package com.infraleap.pinball.views.tournament;
 
 import com.infraleap.pinball.data.matchplay.Standing;
 import com.infraleap.pinball.data.matchplay.Tournament;
@@ -8,12 +8,13 @@ import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
 
 @PageTitle("About")
-@Route(value = "about", layout = MainLayout.class)
-public class AboutView extends Div implements HasUrlParameter<String> {
+@Route(value = "standings", layout = MainLayout.class)
+//@CssImport("./views/standings-view.css")
+public class StandingsView extends Div implements HasUrlParameter<String> {
 
     private final MatchPlayService matchPlayService;
 
@@ -21,8 +22,10 @@ public class AboutView extends Div implements HasUrlParameter<String> {
     private Tournament tournament;
     private Standing[] standings;
 
-    public AboutView(MatchPlayService matchPlayService) {
+    public StandingsView(MatchPlayService matchPlayService) {
         this.matchPlayService = matchPlayService;
+
+        addClassNames("standings-view");
 
         addClassNames("about-view", "flex", "flex-col", "h-full", "items-center", "justify-center", "p-l",
                 "text-center", "box-border");

@@ -37,7 +37,7 @@ public class TournamentSelectView extends VerticalLayout {
     public TournamentSelectView(MatchPlayService matchPlayService) {
         this.matchPlayService = matchPlayService;
 
-        addClassName("hello-world-view");
+        addClassName("tournament-select-view");
     }
 
     @PostConstruct

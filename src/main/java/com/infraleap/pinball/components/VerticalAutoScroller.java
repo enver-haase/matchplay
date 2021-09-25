@@ -1,7 +1,11 @@
 package com.infraleap.pinball.components;
 
 import com.infraleap.pinball.event.TimerEvent;
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentUtil;
+import com.vaadin.flow.component.DetachEvent;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.shared.Registration;
@@ -15,6 +19,9 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
 
     public VerticalAutoScroller(){
         setScrollDirection(ScrollDirection.VERTICAL);
+        verticalLayout.setSizeFull();
+        verticalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+        verticalLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         super.setContent(verticalLayout);
     }
 
