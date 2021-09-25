@@ -2,6 +2,7 @@
 @import url('./views/standings-view.css');
 @import url('./views/tournament-select-view.css');
 @import url('./views/matches-current-round-view.css');
+@import url('./components/vertical-auto-scroller.css');
 @import url('lumo-css-framework/all-classes.css');
 @import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');
 @import url('@fontsource/permanent-marker');    html {
@@ -20,4 +21,10 @@
     --lumo-font-size-xxs: 0.8125rem;
     --lumo-font-family: Permanent Marker;
 
+}
+
+.bordered {
+    border: #2a2a2b;
+    border-width: 4px;
+    background: linear-gradient(#203203, #f0f0f0);
 }

@@ -38,6 +38,7 @@ public class TournamentSelectView extends VerticalLayout {
 
         for (TournamentSet tourneySet : tourneySets){
             VerticalLayout vl = new VerticalLayout();
+            vl.addClassName("bordered");
             vl.add(new H1(tourneySet.getIfpaName()));
             for (String tourney : tourneySet.getIds()){
                 Tournament tournament = matchPlayService.getTournament(tourney);

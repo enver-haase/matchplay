@@ -1,7 +1,6 @@
 package com.infraleap.pinball;
 
 import com.infraleap.pinball.event.TimerEvent;
-import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.ServiceInitEvent;
@@ -18,7 +17,7 @@ public class ApplicationServiceInitListener
 
                 while (evt.getSource().isUIActive(ui)) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(4000);
                         ComponentUtil.fireEvent(ui, new TimerEvent(ui));
                     } catch (InterruptedException e) {
                         e.printStackTrace();

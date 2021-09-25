@@ -14,10 +14,12 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
     // TODO: for a release, make it implement HasComponents, likely override all default methods
 
     private volatile int currentlyVisible = 0;
+    private boolean ascendingScroll = true;
 
     private final VerticalLayout verticalLayout = new VerticalLayout();
 
     public VerticalAutoScroller(){
+        addClassName("vertical-auto-scroller");
         setScrollDirection(ScrollDirection.VERTICAL);
         verticalLayout.setSizeFull();
         verticalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
@@ -33,8 +35,21 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
             if (verticalLayout.getChildren().findAny().isPresent()) {
                 //System.out.println("tick! " + currentlyVisible);
                 synchronized (this) {
-                    ++currentlyVisible;
-                    currentlyVisible %= verticalLayout.getChildren().count();
+                    if (ascendingScroll) {
+                        ++currentlyVisible;
+
+                        // switch to descend if at end
+                        if (currentlyVisible == verticalLayout.getChildren().count() -1){
+                            ascendingScroll = false;
+                        }
+                    } else{
+                        --currentlyVisible;
+
+                        // switch to ascend if at beginning
+                        if (currentlyVisible == 0){
+                            ascendingScroll = true;
+                        }
+                    }
                 }
                 attachEvent.getUI().access(() -> {
                     verticalLayout.getComponentAt(currentlyVisible).getElement().executeJs("$0.scrollIntoView({ behavior: 'smooth', block: 'center' });");
