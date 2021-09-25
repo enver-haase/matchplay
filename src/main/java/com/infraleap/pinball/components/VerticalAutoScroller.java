@@ -37,7 +37,7 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
                     currentlyVisible %= verticalLayout.getChildren().count();
                 }
                 attachEvent.getUI().access(() -> {
-                    verticalLayout.getComponentAt(currentlyVisible).getElement().executeJs("$0.scrollIntoView();");
+                    verticalLayout.getComponentAt(currentlyVisible).getElement().executeJs("$0.scrollIntoView({ behavior: 'smooth', block: 'center' });");
                     attachEvent.getUI().push();
                 });
             }
