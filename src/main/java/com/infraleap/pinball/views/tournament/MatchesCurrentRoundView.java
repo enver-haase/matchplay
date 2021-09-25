@@ -11,9 +11,9 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@PageTitle("Standings")
-@Route(value = "standings", layout = MainLayout.class)
-public class StandingsView extends Div implements HasUrlParameter<String> {
+@PageTitle("Current Round")
+@Route(value = "matches-current-round", layout = MainLayout.class)
+public class MatchesCurrentRoundView extends Div implements HasUrlParameter<String> {
 
     private final MatchPlayService matchPlayService;
 
@@ -21,7 +21,7 @@ public class StandingsView extends Div implements HasUrlParameter<String> {
     private Tournament tournament;
     private Standing[] standings;
 
-    public StandingsView(MatchPlayService matchPlayService) {
+    public MatchesCurrentRoundView(MatchPlayService matchPlayService) {
         this.matchPlayService = matchPlayService;
 
         addClassNames("standings-view");
