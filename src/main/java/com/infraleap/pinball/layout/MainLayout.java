@@ -11,4 +11,7 @@ import com.vaadin.flow.theme.Theme;
 @Theme(themeFolder = "matchplay")
 @PageTitle("Match Play Events monitoring by infraLeap")
 public class MainLayout extends Div implements RouterLayout {
+    public MainLayout(){
+        setSizeFull();
+    }
 }

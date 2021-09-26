@@ -7,12 +7,17 @@ import com.infraleap.pinball.data.matchplay.Tournament;
 import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.ConfigurationService;
 import com.infraleap.pinball.service.MatchPlayService;
+import com.infraleap.pinball.views.tournament.MatchesCurrentRoundView;
+import com.infraleap.pinball.views.tournament.StandingsView;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.RouterLink;
 
 import java.util.List;
 
@@ -43,9 +48,31 @@ public class TournamentSelectView extends VerticalLayout {
             vl.add(new H1(tourneySet.getIfpaName()));
             for (String tourney : tourneySet.getIds()){
                 Tournament tournament = matchPlayService.getTournament(tourney);
-                vl.add(new Span(tournament.getName()));
+
+                HorizontalLayout hl = new HorizontalLayout();
+                hl.add(new Span(tournament.getName()));
+                hl.add(new Anchor("https://matchplay.events/live/"+tournament.getUrlLabel(), "(MatchPlay)"));
+                hl.add(new RouterLink("(Standings)", StandingsView.class, getUrlLabelOrId(tournament)));
+                hl.add(new RouterLink("(current round)", MatchesCurrentRoundView.class, getUrlLabelOrId(tournament)));
+                vl.add(hl);
             }
             vas.add(vl);
+        }
+    }
+
+    /**
+     * Work around a bug in MatchPlay API where UrlLabel does not work in case it is numeric-only.
+     *
+     * @param tournament
+     * @return
+     */
+    private static String getUrlLabelOrId(Tournament tournament){
+        try {
+            Integer.parseInt(tournament.getUrlLabel());
+            return tournament.getTournamentId().toString();
+        }
+        catch (NumberFormatException ignored){
+            return tournament.getUrlLabel();
         }
     }
 }
