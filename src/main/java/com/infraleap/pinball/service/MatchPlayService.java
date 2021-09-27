@@ -25,7 +25,7 @@ public class MatchPlayService {
         target = client.target(getBaseURI());
     }
 
-    public Result[] getResults(String tournament_id) {
+    public synchronized Result[] getResults(String tournament_id) {
         // Get JSON for application
         String jsonResponse = target.path("tournaments").path(tournament_id).path("results").request()
                 .accept(MediaType.APPLICATION_JSON).get(String.class);
@@ -39,7 +39,7 @@ public class MatchPlayService {
         return new Result[0];
     }
 
-    public Standing[] getStandings(String tournament_id) {
+    public synchronized Standing[] getStandings(String tournament_id) {
         // Get JSON for application
         String jsonResponse = target.path("tournaments").path(tournament_id).path("standings").request()
                 .accept(MediaType.APPLICATION_JSON).get(String.class);
@@ -53,7 +53,7 @@ public class MatchPlayService {
         return new Standing[0];
     }
 
-    public Tournament getTournament(String tournament_id) {
+    public synchronized Tournament getTournament(String tournament_id) {
         try {
             // Get JSON for application
             String jsonResponse = target.path("tournaments").path(tournament_id).request()
