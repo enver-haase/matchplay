@@ -1,6 +1,5 @@
 package com.infraleap.pinball.views.tournament;
 
-import ch.qos.logback.core.Layout;
 import com.infraleap.pinball.components.VerticalAutoScroller;
 import com.infraleap.pinball.data.matchplay.*;
 import com.infraleap.pinball.layout.MainLayout;
@@ -9,7 +8,6 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
