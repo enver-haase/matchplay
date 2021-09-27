@@ -2,6 +2,7 @@ package com.infraleap.pinball.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.infraleap.pinball.data.matchplay.Arena;
 import com.infraleap.pinball.data.matchplay.Result;
 import com.infraleap.pinball.data.matchplay.Standing;
 import com.infraleap.pinball.data.matchplay.Tournament;
@@ -14,6 +15,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MatchPlayService {
@@ -23,6 +26,12 @@ public class MatchPlayService {
     public MatchPlayService() {
         Client client = ClientBuilder.newClient();
         target = client.target(getBaseURI());
+    }
+
+    public Arena getArenaWithId(int tournament_id, int id){
+        List<Arena> arenaList = getTournament(Integer.toString(tournament_id)).getArenas();
+        Optional<Arena> arenaOptional = arenaList.stream().filter(arena -> arena.getArenaId() == id ).findFirst();
+        return arenaOptional.orElse(null);
     }
 
     public synchronized Result[] getResults(String tournament_id) {
