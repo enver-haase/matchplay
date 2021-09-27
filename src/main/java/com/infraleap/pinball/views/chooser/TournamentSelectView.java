@@ -43,9 +43,10 @@ public class TournamentSelectView extends VerticalLayout {
         add(vas);
 
         for (TournamentSet tourneySet : tourneySets){
-            VerticalLayout vl = new VerticalLayout();
-            vl.addClassName("bordered");
-            vl.add(new H1(tourneySet.getIfpaName()));
+            VerticalLayout verticalLayout = new VerticalLayout();
+            verticalLayout.addClassName("bordered");
+
+            verticalLayout.add(new H1(tourneySet.getIfpaName()));
             for (String tourney : tourneySet.getIds()){
                 Tournament tournament = matchPlayService.getTournament(tourney);
 
@@ -53,10 +54,11 @@ public class TournamentSelectView extends VerticalLayout {
                 hl.add(new Span(tournament.getName()));
                 hl.add(new Anchor("https://matchplay.events/live/"+tournament.getUrlLabel(), "(MatchPlay)"));
                 hl.add(new RouterLink("(Standings)", StandingsView.class, getUrlLabelOrId(tournament)));
-                hl.add(new RouterLink("(current round)", MatchesCurrentRoundView.class, getUrlLabelOrId(tournament)));
-                vl.add(hl);
+                String lastOrCurrent = (tournament.getStatus().equalsIgnoreCase("completed") ? "(final round of completed tournament)" : "(currently running round)");
+                hl.add(new RouterLink(lastOrCurrent, MatchesCurrentRoundView.class, getUrlLabelOrId(tournament)));
+                verticalLayout.add(hl);
             }
-            vas.add(vl);
+            vas.add(verticalLayout);
         }
     }
 

@@ -1,20 +1,10 @@
 
 /* see: https://stackoverflow.com/questions/4069734/fixed-header-footer-with-scrollable-content */
 
-html, body {
-  height: 100%;
-  margin: 0;
+.main-layout {
+  /*background: #2b908f;*/
 }
-/*.wrapper {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}*/
-.header, .footer {
-  background: silver;
-}
-.content {
-  flex: 1;
-  overflow: auto;
-  background: pink;
+
+html {
+  background: #2b908f;
 }

@@ -5,10 +5,12 @@ import com.infraleap.pinball.data.matchplay.Standing;
 import com.infraleap.pinball.data.matchplay.Tournament;
 import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.MatchPlayService;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
@@ -20,7 +22,7 @@ import java.util.Comparator;
 
 @PageTitle("Standings")
 @Route(value = "standings", layout = MainLayout.class)
-public class StandingsView extends Div implements HasUrlParameter<String> {
+public class StandingsView extends VerticalLayout implements HasUrlParameter<String> {
 
     private final MatchPlayService matchPlayService;
 
@@ -31,10 +33,12 @@ public class StandingsView extends Div implements HasUrlParameter<String> {
         this.matchPlayService = matchPlayService;
 
         addClassNames("standings-view");
-        setHeightFull();
+        addClassName("items-center");
 
-        addClassNames("about-view", "flex", "flex-col", "h-full", "items-center", "justify-center", "p-l",
-                "text-center", "box-border");
+        //setHeightFull();
+
+        //addClassNames("about-view", "flex", "flex-col", "h-full", "items-center", "justify-center", "p-l",
+        //        "text-center", "box-border");
 
     }
 
@@ -43,24 +47,40 @@ public class StandingsView extends Div implements HasUrlParameter<String> {
         removeAll();
 
         if (tournament != null) {
-            add(new H4("Welcome To: "));
-            add(new H2(tournament.getName()));
+            VerticalLayout vl = new VerticalLayout();
+            HorizontalLayout hl = new HorizontalLayout(new H2(tournament.getName()));
+            hl.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+            hl.setWidthFull();
+            vl.add(new H4("Welcome To: "), hl);
+            vl.getStyle().set("background", "#33cccc");
+            add(vl);
         }
-
 
         if (standings != null){
             Arrays.sort(standings, Comparator.comparingInt(Standing::getPosition));
 
             VerticalAutoScroller vas = new VerticalAutoScroller();
-            vas.addClassName("content");
+            add(vas);
+
             for (Standing standing : this.standings){
-                VerticalLayout standingLayout = new VerticalLayout();
+                VerticalLayout verticalLayout = new VerticalLayout();
+                verticalLayout.addClassName("bordered");
+
+                HorizontalLayout standingLayout = new HorizontalLayout();
+                standingLayout.setWidthFull();
                 standingLayout.add(new H3(standing.getPosition().toString()+": "+standing.getName()));
-                standingLayout.add(new H4("Points: "+standing.getPoints()));
-                vas.add(standingLayout);
+                FlexLayout wrapper = new FlexLayout(new H4("Points: "+standing.getPoints()));
+                wrapper.setJustifyContentMode(JustifyContentMode.END);
+                standingLayout.add(wrapper);
+                standingLayout.expand(wrapper);
+
+                standingLayout.setAlignItems(FlexComponent.Alignment.BASELINE);
+
+
+                verticalLayout.add(standingLayout);
+                vas.add(verticalLayout);
             }
 
-            add(vas);
         }
 
     }
