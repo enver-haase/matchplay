@@ -141,15 +141,27 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
         if (st.hasMoreTokens()){
             tourney = st.nextToken();
         }
-        if (st.hasMoreTokens()){
-            round_id = st.nextToken();
-        }
 
         if (tourney != null) {
             tournament = matchPlayService.getTournament(tourney);
             standings = matchPlayService.getStandings(tourney);
             results = matchPlayService.getResults(tourney);
         }
+
+        if (st.hasMoreTokens()){
+            String round = st.nextToken();
+            try {
+                int iRound = Integer.parseInt(round);
+                if (iRound < 100){
+                    round_id = results[iRound-1].getRoundId().toString();
+                }
+            }
+            catch (NumberFormatException | ArrayIndexOutOfBoundsException ignored){
+                round_id = st.nextToken();
+            }
+        }
+
+
 
         update();
     }
