@@ -1,7 +1,10 @@
 @import url('./main-layout.css');
-@import url('./views/standings-view.css');
+
 @import url('./views/tournament-select-view.css');
-@import url('./views/matches-current-round-view.css');
+@import url('./views/standings-view.css');
+@import url('./views/match-view.css');
+@import url('./views/test-view.css');
+
 @import url('./components/vertical-auto-scroller.css');
 @import url('lumo-css-framework/all-classes.css');
 @import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');
