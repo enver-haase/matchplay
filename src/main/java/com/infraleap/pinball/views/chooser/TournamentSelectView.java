@@ -33,8 +33,6 @@ public class TournamentSelectView extends VerticalLayout {
     public TournamentSelectView(ConfigurationService configurationService, MatchPlayService matchPlayService) {
         this.matchPlayService = matchPlayService;
 
-        setHeightFull();
-
         addClassName("tournament-select-view");
         addClassName("items-center");
 
@@ -55,8 +53,7 @@ public class TournamentSelectView extends VerticalLayout {
                 hl.add(new Span(tournament.getName()));
                 hl.add(new Anchor("https://matchplay.events/live/"+tournament.getUrlLabel(), "(MatchPlay)"));
                 hl.add(new RouterLink("(Standings)", StandingsView.class, getUrlLabelOrId(tournament)));
-                String lastOrCurrent = (tournament.getStatus().equalsIgnoreCase("completed") ? "(last round)" : "(current round)");
-                hl.add(new RouterLink(lastOrCurrent, MatchesCurrentRoundView.class, getUrlLabelOrId(tournament)));
+                hl.add(new RouterLink("(current round)", MatchesCurrentRoundView.class, getUrlLabelOrId(tournament)));
                 vl.add(hl);
             }
             vas.add(vl);
