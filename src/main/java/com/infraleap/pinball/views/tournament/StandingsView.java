@@ -5,6 +5,7 @@ import com.infraleap.pinball.data.matchplay.Standing;
 import com.infraleap.pinball.data.matchplay.Tournament;
 import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.MatchPlayService;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
@@ -51,7 +52,7 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
 
         if (tournament != null) {
             VerticalLayout vl = new VerticalLayout();
-            HorizontalLayout hl = new HorizontalLayout(new H2(tournament.getName()));
+            HorizontalLayout hl = new HorizontalLayout(new H1(tournament.getName()));
             hl.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
             hl.setWidthFull();
             vl.add(new H4("Welcome To: "), hl);
