@@ -35,6 +35,9 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
         addClassNames("standings-view");
         addClassName("items-center");
 
+        this.setSpacing(false);
+        this.setPadding(false);
+
         //setHeightFull();
 
         //addClassNames("about-view", "flex", "flex-col", "h-full", "items-center", "justify-center", "p-l",
@@ -54,6 +57,8 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
             vl.add(new H4("Welcome To: "), hl);
             vl.getStyle().set("background", "#33cccc");
             add(vl);
+            vl.getElement().getStyle().set("position", "sticky");
+            vl.getElement().getStyle().set("top", "0");
         }
 
         if (standings != null){
