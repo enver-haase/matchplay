@@ -1,5 +1,10 @@
 # MatchPlay
 
+This application was made to drive tournament monitors (non-interactive)
+to show kiosk-mode web browsers while running a pinball tournament.
+
+
+# Derived from a Vaadin Starter:
 This project can be used as a starting point to create your own Vaadin application with Spring Boot.
 It contains all the necessary configuration and some placeholder files to get you started.
 
