@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.StringTokenizer;
 
-@PageTitle("Standings")
+@PageTitle("Match")
 @Route(value = "match", layout = MainLayout.class)
 public class MatchView extends VerticalLayout implements HasUrlParameter<String> {
 
@@ -29,7 +29,7 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
     public MatchView(MatchPlayService matchPlayService) {
         this.matchPlayService = matchPlayService;
 
-        addClassNames("standings-view");
+        addClassNames("match-view");
         addClassName("items-center");
 
         this.setSpacing(false);
