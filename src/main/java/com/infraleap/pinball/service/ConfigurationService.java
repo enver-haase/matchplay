@@ -17,7 +17,7 @@ public class ConfigurationService {
         Configuration config;
         try {
             ObjectMapper mapper = new ObjectMapper();
-            config = mapper.readValue(resourceFile.getFile(), Configuration.class);
+            config = mapper.readValue(resourceFile.getInputStream(), Configuration.class);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
