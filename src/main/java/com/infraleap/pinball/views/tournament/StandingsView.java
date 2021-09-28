@@ -6,7 +6,6 @@ import com.infraleap.pinball.data.matchplay.Tournament;
 import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.MatchPlayService;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -84,7 +83,7 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
 
 
                 verticalLayout.add(standingLayout);
-                vas.add(verticalLayout);
+                vas.addRow(verticalLayout);
             }
 
         }

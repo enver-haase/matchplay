@@ -8,7 +8,6 @@ import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.ConfigurationService;
 import com.infraleap.pinball.service.MatchPlayService;
 import com.infraleap.pinball.views.tournament.MatchView;
-import com.infraleap.pinball.views.tournament.TestView;
 import com.infraleap.pinball.views.tournament.StandingsView;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
@@ -59,7 +58,7 @@ public class TournamentSelectView extends VerticalLayout {
                 hl.add(new RouterLink(lastOrCurrent, MatchView.class, getUrlLabelOrId(tournament)));
                 verticalLayout.add(hl);
             }
-            vas.add(verticalLayout);
+            vas.addRow(verticalLayout);
         }
     }
 

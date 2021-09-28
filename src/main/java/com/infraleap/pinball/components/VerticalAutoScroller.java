@@ -5,9 +5,9 @@ import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.DetachEvent;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.board.Board;
+import com.vaadin.flow.component.board.Row;
 import com.vaadin.flow.component.orderedlayout.Scroller;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.NoSuchElementException;
@@ -18,15 +18,16 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
     private volatile int currentlyVisible;
     private boolean ascendingScroll;
 
-    private final VerticalLayout verticalLayout = new VerticalLayout();
+    private final Board board = new Board();
+    private Row currentRow = board.addRow();
 
     public VerticalAutoScroller() {
         addClassName("vertical-auto-scroller");
         setScrollDirection(ScrollDirection.VERTICAL);
-        verticalLayout.setSizeFull();
-        verticalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-        verticalLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        super.setContent(verticalLayout);
+        board.setSizeFull();
+        //board.setAlignItems(FlexComponent.Alignment.CENTER);
+        //board.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        super.setContent(board);
     }
 
     private Registration timerRegistration;
@@ -34,18 +35,29 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         synchronized(this) {
-            currentlyVisible = -1; // initially ++(-1) == 0, the first element's index
+            currentlyVisible = 0;
             ascendingScroll = true;
         }
         timerRegistration = ComponentUtil.addListener(attachEvent.getUI(), TimerEvent.class, e -> {
-            if (verticalLayout.getChildren().findAny().isPresent()) { // at least one element must be there
-                //System.out.println("tick! " + currentlyVisible);
+            if (board.getChildren().findAny().isPresent()) { // at least one element must be there
                 synchronized (this) {
+                    attachEvent.getUI().accessSynchronously(() -> {
+                        if (board.getChildren().count() > currentlyVisible) {
+                            board.getComponentAt(currentlyVisible).getElement().executeJs("$0.scrollIntoView({ behavior: 'smooth', block: 'center' });");
+                            try {
+                                attachEvent.getUI().push();
+                            }
+                            catch (NoSuchElementException ignored){
+                                // in case the UI disappeared
+                            }
+                        }
+                    });
+
                     if (ascendingScroll) {
                         ++currentlyVisible;
 
                         // switch to descend if at end
-                        if (currentlyVisible == verticalLayout.getChildren().count() -1) {
+                        if (currentlyVisible == board.getChildren().count() -1) {
                             ascendingScroll = false;
                         }
                     } else {
@@ -57,17 +69,6 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
                         }
                     }
                 }
-                attachEvent.getUI().accessSynchronously(() -> {
-                    if (verticalLayout.getChildren().count() > currentlyVisible) {
-                        verticalLayout.getComponentAt(currentlyVisible).getElement().executeJs("$0.scrollIntoView({ behavior: 'smooth', block: 'center' });");
-                        try {
-                            attachEvent.getUI().push();
-                        }
-                        catch (NoSuchElementException ignored){
-                            // in case the UI disappeared
-                        }
-                    }
-                });
             }
         });
     }
@@ -82,11 +83,18 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
         throw new UnsupportedOperationException();
     }
 
-    public void add(Component... components) {
-        this.verticalLayout.add(components);
+    public void addRow(Component... components) {
+        this.board.add(components);
     }
 
-    public void addEmptyLine() {
-        this.verticalLayout.add("");
+    public void add(Component... components) {
+        for (Component component : components){
+            if (currentRow.getChildren().count() >= 3){
+                currentRow = board.addRow(component);
+            }
+            else {
+                currentRow.add(component);
+            }
+        }
     }
 }
