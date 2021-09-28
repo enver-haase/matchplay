@@ -27,7 +27,7 @@
 }
 
 .bordered {
-    border: #2a2a2b;
-    border-width: 4px;
     background: linear-gradient(#203203, #f0f0f0);
+    border: 4px black;
+    border-style: solid;
 }
