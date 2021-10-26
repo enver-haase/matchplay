@@ -27,11 +27,7 @@ import java.util.List;
 public class TournamentSelectView extends VerticalLayout {
 
 
-
-    private final MatchPlayService matchPlayService;
-
     public TournamentSelectView(ConfigurationService configurationService, MatchPlayService matchPlayService) {
-        this.matchPlayService = matchPlayService;
 
         addClassName("tournament-select-view");
         addClassName("items-center");
@@ -44,7 +40,7 @@ public class TournamentSelectView extends VerticalLayout {
 
         for (TournamentSet tourneySet : tourneySets){
             VerticalLayout verticalLayout = new VerticalLayout();
-            verticalLayout.addClassName("bordered");
+            verticalLayout.addClassName("bordered-silver");
 
             verticalLayout.add(new H1(tourneySet.getIfpaName()));
             for (String tourney : tourneySet.getIds()){

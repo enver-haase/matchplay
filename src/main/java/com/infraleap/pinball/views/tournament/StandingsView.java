@@ -49,27 +49,29 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
 
         removeAll();
 
+        VerticalAutoScroller vas = new VerticalAutoScroller();
+        vas.setWidthFull();
+        add(vas);
+
         if (tournament != null) {
             VerticalLayout vl = new VerticalLayout();
-            HorizontalLayout hl = new HorizontalLayout(new H1(tournament.getName()));
+            HorizontalLayout hl = new HorizontalLayout(new H1("Current Standings:"));
             hl.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
             hl.setWidthFull();
-            vl.add(new H4("Welcome To: "), hl);
-            vl.getStyle().set("background", "#33cccc");
-            add(vl);
-            vl.getElement().getStyle().set("position", "sticky");
-            vl.getElement().getStyle().set("top", "0");
+            vl.add(new H4(tournament.getName()), hl);
+            //add(vl);
+            //vl.getElement().getStyle().set("position", "sticky");
+            //vl.getElement().getStyle().set("top", "0");
+            vl.addClassName("bordered-gold");
+            vas.addRow(vl);
         }
 
         if (standings != null){
             Arrays.sort(standings, Comparator.comparingInt(Standing::getPosition));
 
-            VerticalAutoScroller vas = new VerticalAutoScroller();
-            add(vas);
-
             for (Standing standing : this.standings){
                 VerticalLayout verticalLayout = new VerticalLayout();
-                verticalLayout.addClassName("bordered");
+                verticalLayout.addClassName("bordered-silver");
 
                 HorizontalLayout standingLayout = new HorizontalLayout();
                 standingLayout.setWidthFull();

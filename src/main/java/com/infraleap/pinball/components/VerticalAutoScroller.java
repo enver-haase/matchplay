@@ -85,6 +85,7 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
 
     public void addRow(Component... components) {
         this.board.add(components);
+        currentRow = board.addRow();
     }
 
     public void add(Component... components) {

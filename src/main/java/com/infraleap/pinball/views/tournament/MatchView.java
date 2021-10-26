@@ -67,6 +67,10 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
         }
 
 
+        VerticalAutoScroller vas = new VerticalAutoScroller();
+        vas.setWidthFull();
+        add(vas);
+
         if (tournament != null) {
             VerticalLayout vl = new VerticalLayout();
             HorizontalLayout tourneyNameLayout = new HorizontalLayout(new H1(tournament.getName()));
@@ -76,15 +80,16 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
             roundLayout.setJustifyContentMode(JustifyContentMode.CENTER);
             roundLayout.setWidthFull();
             vl.add(new H4("Welcome To: "), tourneyNameLayout, roundLayout);
-            vl.getStyle().set("background", "#33cccc");
-            vl.getElement().getStyle().set("position", "sticky");
-            vl.getElement().getStyle().set("top", "0");
-            add(vl);
+            //vl.getStyle().set("background", "#33cccc");
+            //vl.getElement().getStyle().set("position", "sticky");
+            //vl.getElement().getStyle().set("top", "0");
+            //add(vl);
+            vl.addClassName("bordered-gold");
+            vas.addRow(vl);
         }
 
 
-        VerticalAutoScroller vas = new VerticalAutoScroller();
-        add(vas);
+
 
         if (round != null){
             for (Game game : round.getGames()) {
@@ -94,7 +99,7 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
                 String arenaHeader = ("Arena: " + (arena == null ? "(none)" : arena.getName()));
 
                 VerticalLayout gameLayout = new VerticalLayout();
-                gameLayout.addClassName("bordered");
+                gameLayout.addClassName("bordered-silver");
                 gameLayout.add(new H3(arenaHeader));
                 VerticalLayout playersLayout = new VerticalLayout();
                 playersLayout.setWidthFull();
