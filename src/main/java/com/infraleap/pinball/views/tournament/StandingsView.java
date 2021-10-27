@@ -55,9 +55,13 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
         vas.setWidthFull();
         add(vas);
 
+        boolean completed = false;
+
         if (tournament != null) {
+            completed = tournament.getStatus().equals("completed");
+
             VerticalLayout vl = new VerticalLayout();
-            HorizontalLayout hl = new HorizontalLayout(new H1("Current Standings:"));
+            HorizontalLayout hl = new HorizontalLayout(new H1(completed? "Final Standings:":"Current Standings:"));
             hl.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
             hl.setWidthFull();
             vl.add(new H4(tournament.getName()), hl);
@@ -72,7 +76,7 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
 
             for (Standing standing : this.standings){
                 VerticalLayout verticalLayout = new VerticalLayout();
-                verticalLayout.addClassName("bordered-silver");
+                verticalLayout.addClassName(completed? "bordered-green":"bordered-silver");
 
                 HorizontalLayout standingLayout = new HorizontalLayout();
                 standingLayout.setWidthFull();
