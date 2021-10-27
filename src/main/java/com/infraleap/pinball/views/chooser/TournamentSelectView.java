@@ -3,6 +3,7 @@ package com.infraleap.pinball.views.chooser;
 import com.infraleap.pinball.components.VerticalAutoScroller;
 import com.infraleap.pinball.data.config.Configuration;
 import com.infraleap.pinball.data.config.TournamentSet;
+import com.infraleap.pinball.data.matchplay.Result;
 import com.infraleap.pinball.data.matchplay.Tournament;
 import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.ConfigurationService;
@@ -54,6 +55,13 @@ public class TournamentSelectView extends VerticalLayout {
                 hl.add(new Span(tournament.getName()));
                 hl.add(new Anchor("https://matchplay.events/live/"+tournament.getUrlLabel(), "(MatchPlay)"));
                 hl.add(new RouterLink("(Standings)", StandingsView.class, getUrlLabelOrId(tournament)));
+
+                Result[] results = matchPlayService.getResults(tourney);
+                for (int i=0; i<results.length; i++){
+                    int round_no = i+1;
+                    hl.add(new RouterLink(Integer.toString(round_no), MatchView.class, getUrlLabelOrId(tournament)+"/"+round_no));
+                }
+
                 String lastOrCurrent = (tournament.getStatus().equalsIgnoreCase("completed") ? "(final round of completed tournament)" : "(currently running round)");
                 hl.add(new RouterLink(lastOrCurrent, MatchView.class, getUrlLabelOrId(tournament)));
                 verticalLayout.add(hl);
