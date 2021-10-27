@@ -1,10 +1,7 @@
 package com.infraleap.pinball.components;
 
 import com.infraleap.pinball.event.TimerEvent;
-import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.ComponentUtil;
-import com.vaadin.flow.component.DetachEvent;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.board.Board;
 import com.vaadin.flow.component.board.Row;
 import com.vaadin.flow.component.orderedlayout.Scroller;
@@ -14,6 +11,19 @@ import java.util.NoSuchElementException;
 
 public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ {
     // TODO: for a release, make it implement HasComponents, likely override all default methods
+
+
+    /**
+     * This event is fired every time the scrolling switches back from descending scroll to ascending scroll,
+     * meaning the content has scrolled through forward, then backwards and is now about to re-start.
+     */
+    public class LoopEvent extends ComponentEvent<VerticalAutoScroller>{
+        public LoopEvent(VerticalAutoScroller source) {
+            super(source, false);
+        }
+    }
+
+
 
     private volatile int currentlyVisible;
     private boolean ascendingScroll;
@@ -25,8 +35,6 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
         addClassName("vertical-auto-scroller");
         setScrollDirection(ScrollDirection.VERTICAL);
         board.setSizeFull();
-        //board.setAlignItems(FlexComponent.Alignment.CENTER);
-        //board.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         super.setContent(board);
     }
 
@@ -66,6 +74,8 @@ public class VerticalAutoScroller extends Scroller /*implements HasComponents*/ 
                         // switch to ascend if at beginning
                         if (currentlyVisible == 0) {
                             ascendingScroll = true;
+                            UI.setCurrent(attachEvent.getUI()); // so that the called subscriber has the UI thread-local available even in this timer-thread we're calling from.
+                            ComponentUtil.fireEvent(this, new LoopEvent(VerticalAutoScroller.this));
                         }
                     }
                 }

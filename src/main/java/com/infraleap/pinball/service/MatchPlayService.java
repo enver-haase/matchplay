@@ -6,6 +6,7 @@ import com.infraleap.pinball.data.matchplay.Arena;
 import com.infraleap.pinball.data.matchplay.Result;
 import com.infraleap.pinball.data.matchplay.Standing;
 import com.infraleap.pinball.data.matchplay.Tournament;
+import org.jboss.logging.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.NotFoundException;
@@ -21,6 +22,8 @@ import java.util.Optional;
 @Service
 public class MatchPlayService {
 
+    private final Logger log = Logger.getLogger(MatchPlayService.class);
+
     private final WebTarget target;
 
     public MatchPlayService() {
@@ -29,6 +32,7 @@ public class MatchPlayService {
     }
 
     public Arena getArenaWithId(int tournament_id, int id){
+        log.info("Getting Arena with id "+id+", tournament id is "+tournament_id);
         List<Arena> arenaList = getTournament(Integer.toString(tournament_id)).getArenas();
         Optional<Arena> arenaOptional = arenaList.stream().filter(arena -> arena.getArenaId() == id ).findFirst();
         return arenaOptional.orElse(null);

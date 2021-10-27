@@ -5,6 +5,8 @@ import com.infraleap.pinball.data.matchplay.Standing;
 import com.infraleap.pinball.data.matchplay.Tournament;
 import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.MatchPlayService;
+import com.vaadin.flow.component.ComponentUtil;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
@@ -16,6 +18,8 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.shared.Registration;
+import org.jboss.logging.Logger;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -23,6 +27,8 @@ import java.util.Comparator;
 @PageTitle("Standings")
 @Route(value = "standings", layout = MainLayout.class)
 public class StandingsView extends VerticalLayout implements HasUrlParameter<String> {
+
+    private final static Logger log = Logger.getLogger(StandingsView.class);
 
     private final MatchPlayService matchPlayService;
 
@@ -37,12 +43,7 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
 
         this.setSpacing(false);
         this.setPadding(false);
-
-        //setHeightFull();
-
-        //addClassNames("about-view", "flex", "flex-col", "h-full", "items-center", "justify-center", "p-l",
-        //        "text-center", "box-border");
-
+        this.setMargin(false);
     }
 
     private void update(){
@@ -59,9 +60,6 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
             hl.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
             hl.setWidthFull();
             vl.add(new H4(tournament.getName()), hl);
-            //add(vl);
-            //vl.getElement().getStyle().set("position", "sticky");
-            //vl.getElement().getStyle().set("top", "0");
             vl.addClassName("bordered-gold");
             vas.addRow(vl);
         }
@@ -90,6 +88,14 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
 
         }
 
+        Registration[] reg = new Registration[1];
+        reg[0] = ComponentUtil.addListener(vas, VerticalAutoScroller.LoopEvent.class, e -> {
+            log.info("RESTART SCROLL "+System.identityHashCode(StandingsView.this));
+            UI.getCurrent().accessSynchronously( () -> {
+                reg[0].remove();
+                UI.getCurrent().getPage().reload();
+            } );
+        });
     }
 
     @Override

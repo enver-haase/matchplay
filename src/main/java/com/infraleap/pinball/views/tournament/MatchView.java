@@ -4,6 +4,8 @@ import com.infraleap.pinball.components.VerticalAutoScroller;
 import com.infraleap.pinball.data.matchplay.*;
 import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.MatchPlayService;
+import com.vaadin.flow.component.ComponentUtil;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
@@ -11,6 +13,8 @@ import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
+import com.vaadin.flow.shared.Registration;
+import org.jboss.logging.Logger;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -19,6 +23,8 @@ import java.util.StringTokenizer;
 @PageTitle("Match")
 @Route(value = "match", layout = MainLayout.class)
 public class MatchView extends VerticalLayout implements HasUrlParameter<String> {
+
+    private final static Logger log = Logger.getLogger(MatchView.class);
 
     private final MatchPlayService matchPlayService;
 
@@ -34,16 +40,10 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
 
         this.setSpacing(false);
         this.setPadding(false);
-
-        //setHeightFull();
-
-        //addClassNames("about-view", "flex", "flex-col", "h-full", "items-center", "justify-center", "p-l",
-        //        "text-center", "box-border");
-
+        this.setMargin(false);
     }
 
     private void update(){
-
         removeAll();
 
         Result round = null;
@@ -80,10 +80,6 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
             roundLayout.setJustifyContentMode(JustifyContentMode.CENTER);
             roundLayout.setWidthFull();
             vl.add(new H4("Welcome To: "), tourneyNameLayout, roundLayout);
-            //vl.getStyle().set("background", "#33cccc");
-            //vl.getElement().getStyle().set("position", "sticky");
-            //vl.getElement().getStyle().set("top", "0");
-            //add(vl);
             vl.addClassName("bordered-gold");
             vas.addRow(vl);
         }
@@ -129,6 +125,15 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
                 vas.add(gameLayout);
             }
         }
+
+        Registration[] reg = new Registration[1];
+        reg[0] = ComponentUtil.addListener(vas, VerticalAutoScroller.LoopEvent.class, e -> {
+            log.info("RESTART SCROLL "+System.identityHashCode(MatchView.this));
+            UI.getCurrent().accessSynchronously( () -> {
+                reg[0].remove();
+                UI.getCurrent().getPage().reload();
+            } );
+        });
 
     }
 
