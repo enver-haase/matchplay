@@ -162,7 +162,7 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
                 }
             }
             catch (NumberFormatException | ArrayIndexOutOfBoundsException ignored){
-                round_id = st.nextToken();
+                round_id = round;
             }
         }
 
