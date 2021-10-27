@@ -31,11 +31,15 @@ public class TournamentSelectView extends VerticalLayout {
 
         addClassName("tournament-select-view");
         addClassName("items-center");
+        setPadding(false);
+        setSpacing(false);
+        setMargin(false);
 
         Configuration config = configurationService.getConfiguration();
         List<TournamentSet> tourneySets = config.getTournamentSets();
 
         VerticalAutoScroller vas = new VerticalAutoScroller();
+        vas.setWidthFull();
         add(vas);
 
         for (TournamentSet tourneySet : tourneySets){
@@ -61,8 +65,8 @@ public class TournamentSelectView extends VerticalLayout {
     /**
      * Work around a bug in MatchPlay API where UrlLabel does not work in case it is numeric-only.
      *
-     * @param tournament
-     * @return
+     * @param tournament the tournament to retrieve the id or label from
+     * @return the id or label, as accepted by the MatchPlay API.
      */
     private static String getUrlLabelOrId(Tournament tournament){
         try {
