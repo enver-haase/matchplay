@@ -56,15 +56,21 @@ public class TournamentSelectView extends VerticalLayout {
                 hl.add(new Anchor("https://matchplay.events/live/"+tournament.getUrlLabel(), "(MatchPlay)"));
                 hl.add(new RouterLink("(Standings)", StandingsView.class, getUrlLabelOrId(tournament)));
 
-                Result[] results = matchPlayService.getResults(tourney);
-                for (int i=0; i<results.length; i++){
-                    int round_no = i+1;
-                    hl.add(new RouterLink(Integer.toString(round_no), MatchView.class, getUrlLabelOrId(tournament)+"/"+round_no));
-                }
-
-                String lastOrCurrent = (tournament.getStatus().equalsIgnoreCase("completed") ? "(final round of completed tournament)" : "(currently running round)");
+                String lastOrCurrent = (tournament.getStatus().equalsIgnoreCase("completed") ? "(last)" : "(current)");
                 hl.add(new RouterLink(lastOrCurrent, MatchView.class, getUrlLabelOrId(tournament)));
                 verticalLayout.add(hl);
+
+
+                Result[] results = matchPlayService.getResults(tourney);
+                HorizontalLayout rounds = new HorizontalLayout();
+                rounds.setWidthFull();
+                rounds.setJustifyContentMode(JustifyContentMode.END);
+                rounds.add(new Span("Round"));
+                for (int i=0; i<results.length; i++){
+                    int round_no = i+1;
+                    rounds.add(new RouterLink("("+ round_no +")", MatchView.class, getUrlLabelOrId(tournament)+"/"+round_no));
+                }
+                verticalLayout.add(rounds);
             }
             vas.addRow(verticalLayout);
         }
