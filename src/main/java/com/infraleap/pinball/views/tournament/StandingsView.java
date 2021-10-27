@@ -1,5 +1,6 @@
 package com.infraleap.pinball.views.tournament;
 
+import com.infraleap.animatecss.Animated;
 import com.infraleap.pinball.components.VerticalAutoScroller;
 import com.infraleap.pinball.data.matchplay.Standing;
 import com.infraleap.pinball.data.matchplay.Tournament;
@@ -62,6 +63,8 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
             vl.add(new H4(tournament.getName()), hl);
             vl.addClassName("bordered-gold");
             vas.addRow(vl);
+
+            Animated.animate(vl, Animated.Animation.BOUNCE_IN_LEFT);
         }
 
         if (standings != null){
@@ -84,6 +87,8 @@ public class StandingsView extends VerticalLayout implements HasUrlParameter<Str
 
                 verticalLayout.add(standingLayout);
                 vas.addRow(verticalLayout);
+
+                Animated.animate(verticalLayout, Animated.Animation.BOUNCE_IN_RIGHT);
             }
 
         }

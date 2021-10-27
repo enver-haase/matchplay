@@ -1,5 +1,6 @@
 package com.infraleap.pinball.views.tournament;
 
+import com.infraleap.animatecss.Animated;
 import com.infraleap.pinball.components.VerticalAutoScroller;
 import com.infraleap.pinball.data.matchplay.*;
 import com.infraleap.pinball.layout.MainLayout;
@@ -82,6 +83,8 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
             vl.add(new H4("Welcome To: "), tourneyNameLayout, roundLayout);
             vl.addClassName("bordered-gold");
             vas.addRow(vl);
+
+            Animated.animate(vl, Animated.Animation.BOUNCE_IN_LEFT);
         }
 
 
@@ -95,7 +98,6 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
                 String arenaHeader = ("Arena: " + (arena == null ? "(none)" : arena.getName()));
 
                 VerticalLayout gameLayout = new VerticalLayout();
-                gameLayout.addClassName("bordered-silver");
                 gameLayout.add(new H3(arenaHeader));
                 VerticalLayout playersLayout = new VerticalLayout();
                 playersLayout.setWidthFull();
@@ -107,22 +109,32 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
                 Player[] players = game.getPlayers().toArray(new Player[0]);
                 Arrays.sort(players, Comparator.comparingInt(player -> (int) player.getGame().getAdditionalProperties().get("index")));
 
+                log.info("Game status: "+game.getStatus());
+                boolean running = !game.getStatus().equalsIgnoreCase("completed");
+                log.info("Game is running: "+running);
                 for (Player player : players) {
-                    String points = "\u00a0: "; // non-breaking space before the colon
-                    for (Result result : results){
-                        if (result.getAdditionalProperties() != null) {
-                            if (player.getPlayerId().equals(result.getAdditionalProperties().get("player_id"))) {
-                                points += result.getAdditionalProperties().get("points");
-                                points += "pts";
-                                break;
+                    if (!running) {
+                        String points = "\u00a0: "; // non-breaking space before the colon
+                        for (Result result : results) {
+                            if (result.getAdditionalProperties() != null) {
+                                if (player.getPlayerId().equals(result.getAdditionalProperties().get("player_id"))) {
+                                    points += result.getAdditionalProperties().get("points");
+                                    points += "pts";
+                                    break;
+                                }
                             }
                         }
+                        playersLayout.add(new H2(player.getName() + points));
+                        gameLayout.addClassName("bordered-over");
                     }
-
-                    playersLayout.add(new H2(player.getName()+points));
+                    else{
+                        playersLayout.add(new H2(player.getName()));
+                        gameLayout.addClassName("bordered-silver");
+                    }
                 }
 
                 vas.add(gameLayout);
+                Animated.animate(gameLayout, Animated.Animation.BOUNCE_IN_RIGHT);
             }
         }
 
