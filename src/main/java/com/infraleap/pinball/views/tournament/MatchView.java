@@ -125,7 +125,7 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
                             }
                         }
                         playersLayout.add(new H2(player.getName() + points));
-                        gameLayout.addClassName("bordered-over");
+                        gameLayout.addClassName("bordered-green");
                     }
                     else{
                         playersLayout.add(new H2(player.getName()));

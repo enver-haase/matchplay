@@ -37,7 +37,7 @@
     border: 4px black;
     border-style: solid;
 }
-.bordered-over {
+.bordered-green {
     background: linear-gradient(#d0ffd0, #80d080, #d0ffd0);
     border: 4px black;
     border-style: solid;
