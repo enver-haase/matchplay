@@ -5,6 +5,7 @@ import com.infraleap.pinball.components.VerticalAutoScroller;
 import com.infraleap.pinball.data.matchplay.*;
 import com.infraleap.pinball.layout.MainLayout;
 import com.infraleap.pinball.service.MatchPlayService;
+import com.infraleap.pinball.views.chooser.TournamentSelectView;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.H1;
@@ -23,7 +24,7 @@ import java.util.StringTokenizer;
 
 @PageTitle("Match")
 @Route(value = "match", layout = MainLayout.class)
-public class MatchView extends VerticalLayout implements HasUrlParameter<String> {
+public class MatchView extends VerticalLayout implements HasUrlParameter<String>, BeforeEnterObserver {
 
     private final static Logger log = Logger.getLogger(MatchView.class);
 
@@ -88,14 +89,12 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
         }
 
 
-
-
         if (round != null){
             for (Game game : round.getGames()) {
                 // Game -- arena with players
                 Integer arenaId = game.getArenaId();
                 Arena arena = arenaId == null ? null : matchPlayService.getArenaWithId(tournament.getTournamentId(), arenaId);
-                String arenaHeader = ("Arena: " + (arena == null ? "(none)" : arena.getName()));
+                String arenaHeader = (/*"Arena: " + */(arena == null ? "(NO ARENA)" : arena.getName()));
 
                 VerticalLayout gameLayout = new VerticalLayout();
                 gameLayout.add(new H3(arenaHeader));
@@ -178,8 +177,13 @@ public class MatchView extends VerticalLayout implements HasUrlParameter<String>
             }
         }
 
-
-
         update();
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+        if (tournament == null){ // empty parameter string?
+            beforeEnterEvent.forwardTo(TournamentSelectView.class);
+        }
     }
 }
