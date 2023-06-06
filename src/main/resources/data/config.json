@@ -1,7 +1,7 @@
 {
   "tournament_sets": [
-    { "ifpaName" : "Fine Pinballs in Friedrichshain", "ids": ["qn282", "21072"]},
-    { "ifpaName" : "Finer Pinballs in Friedrichshain", "ids": ["9yn8v"]},
+    { "ifpaName" : "Fine Pinballs in Friedrichshain", "ids": ["qn282"]},
+    { "ifpaName" : "Finer Pinballs in Friedrichshain", "ids": ["21072", "9yn8v"]},
     { "ifpaName" : "Finest Pinballs in Friedrichshain", "ids": ["9xvdj"]},
     { "ifpaName" : "More Fine Pinballs in Friedrichshain", "ids": ["6rded"]},
     { "ifpaName" : "Many More Fine Pinballs in Friedrichshain", "ids": ["e1v6n", "e1zq9", "1zjkz"]},
