@@ -1,10 +1,11 @@
 {
   "tournament_sets": [
-    { "ifpaName" : "Fine Pinballs in Friedrichshain", "ids": ["qn282"]},
-    { "ifpaName" : "Finer Pinballs in Friedrichshain", "ids": ["21072", "9yn8v"]},
-    { "ifpaName" : "Finest Pinballs in Friedrichshain", "ids": ["9xvdj"]},
-    { "ifpaName" : "More Fine Pinballs in Friedrichshain", "ids": ["6rded"]},
+    { "ifpaName" : "NEWSFLASH: FLIPPERSTUDIO.DE ACQUIRES FRIEDRICHSHAIN", "ids": ["j7b0e", "58g76"]},
+    { "ifpaName" : "Friedrichshain Volcano Dance", "ids": ["r65db"]},
     { "ifpaName" : "Many More Fine Pinballs in Friedrichshain", "ids": ["e1v6n", "e1zq9", "1zjkz"]},
-    { "ifpaName" : "Friedrichshain Volcano Dance", "ids": ["r65db"]}
+    { "ifpaName" : "More Fine Pinballs in Friedrichshain", "ids": ["6rded"]},
+    { "ifpaName" : "Finest Pinballs in Friedrichshain", "ids": ["9xvdj"]},
+    { "ifpaName" : "Finer Pinballs in Friedrichshain", "ids": ["21072", "9yn8v"]},
+    { "ifpaName" : "Fine Pinballs in Friedrichshain", "ids": ["qn282"]}
   ]
 }
