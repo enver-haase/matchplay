@@ -155,8 +155,11 @@
             <artifactId>jsr305</artifactId>
             <version>3.0.0</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.17.2</version>
+        </dependency>
 
 
         <dependency>
@@ -185,6 +188,8 @@
             <artifactId>vaadin-testbench</artifactId>
             <scope>test</scope>
         </dependency>
+
+
         <!-- Include JUnit 4 support for TestBench and others -->
         <dependency>
             <groupId>org.junit.vintage</groupId>
