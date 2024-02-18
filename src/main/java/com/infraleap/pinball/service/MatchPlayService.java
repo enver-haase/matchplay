@@ -7,6 +7,8 @@ import com.infraleap.pinball.data.matchplay.Result;
 import com.infraleap.pinball.data.matchplay.Standing;
 import com.infraleap.pinball.data.matchplay.Tournament;
 import org.jboss.logging.Logger;
+import org.openapitools.client.model.GetTournamentList200Response;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.NotFoundException;
@@ -19,9 +21,13 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import org.openapitools.client.api.TournamentsApi;
+
 @Service
 public class MatchPlayService {
 
+    @Value("${bearer.token}")
+    private String bearerToken;
     private final Logger log = Logger.getLogger(MatchPlayService.class);
 
     private final WebTarget target;
@@ -29,6 +35,17 @@ public class MatchPlayService {
     public MatchPlayService() {
         Client client = ClientBuilder.newClient();
         target = client.target(getBaseURI());
+
+
+        // TODO: This is a test to see if the API works. Remove this later.
+        TournamentsApi api = new TournamentsApi();
+        api.getApiClient().setBearerToken(bearerToken);
+        try {
+            GetTournamentList200Response response = api.getTournamentList(null, null, null, null, null);
+            log.info("Got response: "+response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Arena getArenaWithId(int tournament_id, int id){
