@@ -6,7 +6,6 @@
 @import url('./views/test-view.css');
 
 @import url('./components/vertical-auto-scroller.css');
-@import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');
 @import url('@fontsource/permanent-marker');    html {
     --lumo-base-color: #e6e0e0;
     --lumo-primary-color: hsl(233, 78%, 33%);
