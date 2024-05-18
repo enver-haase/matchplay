@@ -24,7 +24,7 @@ import java.util.List;
 
 @PageTitle("Tournament Selector")
 @Route(value = "tournament-select", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
+//@RouteAlias(value = "", layout = MainLayout.class)
 public class TournamentSelectView extends VerticalLayout {
 
 

@@ -1,20 +1,24 @@
 package com.infraleap.pinball;
 
-import com.vaadin.flow.component.dependency.NpmPackage;
+import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Push;
+import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.shared.communication.PushMode;
+import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.vaadin.artur.helpers.LaunchUtil;
 
 /**
  * The entry point of the Spring Boot application.
  */
 @SpringBootApplication
-@NpmPackage(value = "@fontsource/permanent-marker", version = "4.5.0")
-@NpmPackage(value = "lumo-css-framework", version = "^4.0.10")
-@NpmPackage(value = "line-awesome", version = "1.3.0")
-public class Application extends SpringBootServletInitializer {
+@Push(PushMode.MANUAL)
+@PWA(name = "FLIPPERSTUDIO.DE", shortName = "flipperstudio.de")
+@Theme("matchplay")
+public class Application implements AppShellConfigurator {
+
     public static void main(String[] args) {
-        LaunchUtil.launchBrowserInDevelopmentMode(SpringApplication.run(Application.class, args));
+        SpringApplication.run(Application.class, args);
     }
+
 }
