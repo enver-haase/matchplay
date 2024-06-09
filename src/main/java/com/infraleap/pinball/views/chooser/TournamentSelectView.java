@@ -53,7 +53,7 @@ public class TournamentSelectView extends VerticalLayout {
 
                 HorizontalLayout hl = new HorizontalLayout();
                 hl.add(new Span(tournament.getName()));
-                hl.add(new Anchor("https://matchplay.events/live/"+tournament.getUrlLabel(), "(MatchPlay)"));
+                hl.add(new Anchor("https://app.matchplay.events/tournaments/"+tournament.getUrlLabel(), "(MatchPlay)"));
                 hl.add(new RouterLink("(Standings)", StandingsView.class, getUrlLabelOrId(tournament)));
 
                 String lastOrCurrent = (tournament.getStatus().equalsIgnoreCase("completed") ? "(last)" : "(current)");
@@ -84,8 +84,7 @@ public class TournamentSelectView extends VerticalLayout {
      */
     private static String getUrlLabelOrId(Tournament tournament){
         try {
-            Integer.parseInt(tournament.getUrlLabel());
-            return tournament.getTournamentId().toString();
+            return Integer.toString(tournament.getTournamentId());
         }
         catch (NumberFormatException ignored){
             return tournament.getUrlLabel();

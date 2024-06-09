@@ -114,6 +114,11 @@
             <version>1.17.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version>
+        </dependency>
 
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
@@ -181,7 +186,7 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>7.5.0</version>
+                <version>7.6.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -193,7 +198,11 @@
                             <skipValidateSpec>true</skipValidateSpec>
                             <configOptions>
                                 <sourceFolder>src/gen/java/main</sourceFolder>
+                                <disallowAdditionalPropertiesIfNotPresent>false</disallowAdditionalPropertiesIfNotPresent>
+                                <library>okhttp-gson</library>
+                                <cleanOutput>true</cleanOutput>
                                 <useJakartaEe>true</useJakartaEe>
+                                <useSpringBoot3>true</useSpringBoot3>
                             </configOptions>
                         </configuration>
                     </execution>

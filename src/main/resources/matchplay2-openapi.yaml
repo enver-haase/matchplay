@@ -6017,6 +6017,8 @@ paths:
                 properties:
                   data:
                     type: array
+                    items:
+                      type: object
                     example: []
                   links:
                     type: object
